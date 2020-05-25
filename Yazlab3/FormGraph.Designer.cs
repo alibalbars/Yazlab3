@@ -1,6 +1,6 @@
 ﻿namespace Yazlab3
 {
-    partial class Form1
+    partial class FormGraph
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // FormGraph
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Name = "FormGraph";
+            this.Text = "FormGraph";
+            this.Load += new System.EventHandler(this.FormGraph_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
     }
 }
-
