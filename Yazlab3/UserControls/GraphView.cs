@@ -35,7 +35,6 @@ namespace Yazlab3.UserControls
             var nodeList = new List<Node>();
             foreach (var myNode in listOfNodes)
             {
-
                 graph.AddNode(new Node(myNode.Name));
             }
             //Microsoft.Msagl.Drawing.Node node = new Microsoft.Msagl.Drawing.Node("a");

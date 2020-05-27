@@ -34,20 +34,31 @@ namespace Yazlab3
 
             foreach (var myPipe in myGraph.Pipes)
             {
-                graph.AddEdge(myPipe.StartingPoint, myPipe.StartingValue.ToString() , myPipe.EndPoint);
-                graph.AddEdge(myPipe.EndPoint, myPipe.EndingValue.ToString(), myPipe.StartingPoint);
+                if (myPipe.StartingValue != 0)
+                {
+                    graph.AddEdge(myPipe.StartingPoint, myPipe.StartingValue.ToString() , myPipe.EndPoint);
+                }
+                if (myPipe.EndingValue != 0)
+                {
+                    graph.AddEdge(myPipe.EndPoint, myPipe.EndingValue.ToString(), myPipe.StartingPoint);
+                }
             }
 
+            string startingPointName = myGraph.Nodes.Where(x => x.IsStartingPoint == true)
+                .Select(x => x.Name).FirstOrDefault();
 
+            string endPointName = myGraph.Nodes.Where(x => x.IsEndPoint == true)
+                .Select(x => x.Name).FirstOrDefault();
 
+            if (startingPointName != null && endPointName != null)
+            {
+                graph.FindNode(startingPointName).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                graph.FindNode(startingPointName).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                graph.FindNode(endPointName).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                graph.FindNode(endPointName).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+            }
 
-
-
-
-
-
-
-
+           
             //Microsoft.Msagl.Drawing.Node node = new Microsoft.Msagl.Drawing.Node("a");
 
             //graph.AddEdge("Ali", "Veli");

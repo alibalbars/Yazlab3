@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Yazlab3.GraphElements;
+using Yazlab3.UserControls;
 
 namespace Yazlab3
 {
@@ -22,6 +24,8 @@ namespace Yazlab3
         {
             graphView.Hide();
             inputControls.Show();
+            this.ActiveControl = inputControls.tbxNodeCount;
+
         }
 
         private void btnControlPnl_Click(object sender, EventArgs e)
@@ -34,6 +38,18 @@ namespace Yazlab3
         {
             FormGraph formGraph = new FormGraph();
             formGraph.Show();
+        }
+
+        private void btnMaxFlow_Click(object sender, EventArgs e)
+        {
+            MyGraph myGraph = InputControls.getMyGraph();
+
+            long maxFlow = myGraph.getMaxFlow();
+
+            MessageBox.Show($"Başlangıç Noktası: {myGraph.getStartingPoint()}\n" +
+                $"Bitiş Noktası: {myGraph.getEndPoint()}\n" +
+                $"Maximum flow = {maxFlow}", "Maximum flow",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

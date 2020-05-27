@@ -101,6 +101,7 @@ namespace Yazlab3.UserControls
         private void btnPipeCapacity_Click(object sender, EventArgs e)
         {
             MyPipe pipe = new MyPipe();
+            MyPipe pipe2 = new MyPipe();
             int capacity1;
             int capacity2;
             string name1;
@@ -108,8 +109,26 @@ namespace Yazlab3.UserControls
             MyNode node1 = new MyNode();
             MyNode node2 = new MyNode();
 
-            capacity1 = Int32.Parse(tbxPipe1Capacity.Text);
-            capacity2 = Int32.Parse(tbxPipe2Capacity.Text);
+            
+
+            //Textbox boş ise
+            if (String.IsNullOrEmpty(tbxPipe1Capacity.Text))
+            {
+                capacity1 = 0;
+            }
+            else
+            {
+                capacity1 = Int32.Parse(tbxPipe1Capacity.Text);
+            }
+            //Textbox boş ise
+            if (String.IsNullOrEmpty(tbxPipe2Capacity.Text))
+            {
+                capacity2 = 0;
+            }
+            else
+            {
+                capacity2 = Int32.Parse(tbxPipe2Capacity.Text);
+            }
 
             tbxPipe1Capacity.Text = string.Empty;
             tbxPipe2Capacity.Text = string.Empty;
@@ -120,17 +139,27 @@ namespace Yazlab3.UserControls
             pipe.StartingPoint = name1;
             pipe.EndPoint = name2;
 
+            pipe2.StartingPoint = name2;
+            pipe2.EndPoint = name1;
+
+
             pipe.StartingValue = capacity1;
             pipe.EndingValue = capacity2;
+
+            pipe2.StartingValue = capacity2;
+            pipe2.EndingValue = capacity1;
 
             node1 = listOfNodes.Where(x => x.Name == name1).FirstOrDefault();
             node2 = listOfNodes.Where(x => x.Name == name2).FirstOrDefault();
 
-            node1.Pipes.Add(pipe);
-            node2.Pipes.Add(pipe);
-
             myGraph.Pipes.Add(pipe);
             myGraph.Nodes = listOfNodes;
+
+            node1.Pipes.Add(pipe);
+            
+            node2.Pipes.Add(pipe2);
+            
+
             pnlPipeCapacity.Hide();
         }
 

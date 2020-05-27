@@ -33,11 +33,13 @@
             this.btnControlPnl = new System.Windows.Forms.Button();
             this.inputControls = new Yazlab3.UserControls.InputControls();
             this.graphView = new Yazlab3.UserControls.GraphView();
+            this.btnMaxFlow = new System.Windows.Forms.Button();
             this.pnlLeft.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlLeft
             // 
+            this.pnlLeft.Controls.Add(this.btnMaxFlow);
             this.pnlLeft.Controls.Add(this.btnGraphView);
             this.pnlLeft.Controls.Add(this.btnControlPnl);
             this.pnlLeft.Dock = System.Windows.Forms.DockStyle.Left;
@@ -81,6 +83,16 @@
             this.graphView.Size = new System.Drawing.Size(466, 343);
             this.graphView.TabIndex = 2;
             // 
+            // btnMaxFlow
+            // 
+            this.btnMaxFlow.Location = new System.Drawing.Point(12, 131);
+            this.btnMaxFlow.Name = "btnMaxFlow";
+            this.btnMaxFlow.Size = new System.Drawing.Size(84, 35);
+            this.btnMaxFlow.TabIndex = 2;
+            this.btnMaxFlow.Text = "Max Flow";
+            this.btnMaxFlow.UseVisualStyleBackColor = true;
+            this.btnMaxFlow.Click += new System.EventHandler(this.btnMaxFlow_Click);
+            // 
             // FormMain
             // 
             this.ClientSize = new System.Drawing.Size(595, 355);
@@ -103,6 +115,7 @@
         private System.Windows.Forms.Button btnControlPnl;
         private UserControls.GraphView graphView;
         private UserControls.InputControls inputControls;
+        private System.Windows.Forms.Button btnMaxFlow;
     }
 }
 
