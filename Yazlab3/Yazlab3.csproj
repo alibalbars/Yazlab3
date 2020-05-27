@@ -113,6 +113,7 @@
     <Compile Include="GraphElements\MyGraph.cs" />
     <Compile Include="GraphElements\MyNode.cs" />
     <Compile Include="GraphElements\MyPipe.cs" />
+    <Compile Include="GraphPath.cs" />
     <Compile Include="Methods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

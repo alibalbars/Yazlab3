@@ -31,14 +31,16 @@
             this.pnlLeft = new System.Windows.Forms.Panel();
             this.btnGraphView = new System.Windows.Forms.Button();
             this.btnControlPnl = new System.Windows.Forms.Button();
+            this.btnMaxFlow = new System.Windows.Forms.Button();
             this.inputControls = new Yazlab3.UserControls.InputControls();
             this.graphView = new Yazlab3.UserControls.GraphView();
-            this.btnMaxFlow = new System.Windows.Forms.Button();
+            this.btnMaxFlowPaths = new System.Windows.Forms.Button();
             this.pnlLeft.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlLeft
             // 
+            this.pnlLeft.Controls.Add(this.btnMaxFlowPaths);
             this.pnlLeft.Controls.Add(this.btnMaxFlow);
             this.pnlLeft.Controls.Add(this.btnGraphView);
             this.pnlLeft.Controls.Add(this.btnControlPnl);
@@ -50,7 +52,7 @@
             // 
             // btnGraphView
             // 
-            this.btnGraphView.Location = new System.Drawing.Point(12, 78);
+            this.btnGraphView.Location = new System.Drawing.Point(12, 69);
             this.btnGraphView.Name = "btnGraphView";
             this.btnGraphView.Size = new System.Drawing.Size(84, 35);
             this.btnGraphView.TabIndex = 1;
@@ -68,6 +70,16 @@
             this.btnControlPnl.UseVisualStyleBackColor = true;
             this.btnControlPnl.Click += new System.EventHandler(this.btnControlPnl_Click);
             // 
+            // btnMaxFlow
+            // 
+            this.btnMaxFlow.Location = new System.Drawing.Point(12, 131);
+            this.btnMaxFlow.Name = "btnMaxFlow";
+            this.btnMaxFlow.Size = new System.Drawing.Size(84, 35);
+            this.btnMaxFlow.TabIndex = 2;
+            this.btnMaxFlow.Text = "Max Flow";
+            this.btnMaxFlow.UseVisualStyleBackColor = true;
+            this.btnMaxFlow.Click += new System.EventHandler(this.btnMaxFlow_Click);
+            // 
             // inputControls
             // 
             this.inputControls.AutoScroll = true;
@@ -83,15 +95,15 @@
             this.graphView.Size = new System.Drawing.Size(466, 343);
             this.graphView.TabIndex = 2;
             // 
-            // btnMaxFlow
+            // btnMaxFlowPaths
             // 
-            this.btnMaxFlow.Location = new System.Drawing.Point(12, 131);
-            this.btnMaxFlow.Name = "btnMaxFlow";
-            this.btnMaxFlow.Size = new System.Drawing.Size(84, 35);
-            this.btnMaxFlow.TabIndex = 2;
-            this.btnMaxFlow.Text = "Max Flow";
-            this.btnMaxFlow.UseVisualStyleBackColor = true;
-            this.btnMaxFlow.Click += new System.EventHandler(this.btnMaxFlow_Click);
+            this.btnMaxFlowPaths.Location = new System.Drawing.Point(12, 172);
+            this.btnMaxFlowPaths.Name = "btnMaxFlowPaths";
+            this.btnMaxFlowPaths.Size = new System.Drawing.Size(84, 35);
+            this.btnMaxFlowPaths.TabIndex = 3;
+            this.btnMaxFlowPaths.Text = "Max Flow Paths";
+            this.btnMaxFlowPaths.UseVisualStyleBackColor = true;
+            this.btnMaxFlowPaths.Click += new System.EventHandler(this.btnMaxFlowPaths_Click);
             // 
             // FormMain
             // 
@@ -116,6 +128,7 @@
         private UserControls.GraphView graphView;
         private UserControls.InputControls inputControls;
         private System.Windows.Forms.Button btnMaxFlow;
+        private System.Windows.Forms.Button btnMaxFlowPaths;
     }
 }
 

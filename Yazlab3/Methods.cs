@@ -11,11 +11,6 @@ namespace Yazlab3
 {
     static class Methods
     {
-        public static void AddNodes(this MyGraph graph, List<MyNode> listOfNodes)
-        {
-            
-        }
-
         public static List<MyNode> getNodeList(int count)
         {
             if (count < 1)
@@ -76,7 +71,6 @@ namespace Yazlab3
                 startingPoint = "A";
             }
             
-
             return startingPoint;
         }
 
@@ -110,10 +104,6 @@ namespace Yazlab3
             char startingPoint = Char.Parse(myGraph.getStartingPoint());
             char endPoint = Char.Parse(myGraph.getEndPoint());
 
-            //int[] tails = new int[numPipes];
-            //int[] heads = new int[numPipes];
-            //int[] capacities = new int[numPipes];
-
             List<int> tails, heads, capacities;
             tails = new List<int>();
             heads = new List<int>();
@@ -133,21 +123,8 @@ namespace Yazlab3
                 
             }
 
-            //foreach(var pipe in pipes)
-            //{
-            //    if (pipe.StartingValue != 0)
-            //    {
-            //        tails.Add = pipe.StartingNode.Name
-            //    }
-            //    else if(pipe.EndingValue != 0)
-            //    {
-                    
-            //    }
-            //}
-            
-
             MaxFlow maxFlow = new MaxFlow();
-            for (int i = 0; i < numPipes; ++i)
+            for (int i = 0; i < tails.Count()/*numPipes*/; ++i)
             {
                 int arc = maxFlow.AddArcWithCapacity(tails[i], heads[i], capacities[i]);
                 if (arc != i) throw new Exception("Internal error");
@@ -170,6 +147,109 @@ namespace Yazlab3
 
             return totalFlow;
 
+        }
+
+        public static List<List<string>> getMaxFlowPaths(this MyGraph myGraph)
+        {
+            List<int> tails, heads, capacities;
+            tails = myGraph.getTailList();
+            heads = myGraph.getHeadList();
+            capacities = myGraph.getCapacityList();
+
+            int numNodes = myGraph.Nodes.Count();
+            int numEdges = myGraph.Nodes.Count();
+
+            GraphPath g = new GraphPath(numNodes);
+            int source = Char.Parse(myGraph.getStartingPoint()) - 'A';
+            int destination = Char.Parse(myGraph.getEndPoint()) - 'A';
+
+            for (int i = 0; i < tails.Count(); i++)
+            {
+                g.addEdge(tails[i], heads[i]);
+            }
+
+            g.printAllPaths(source, destination);
+            //g.allPathsStr.ForEach(Console.WriteLine);
+
+            //"0" "1" "2" "4" 
+            //"0" "1" "3" "4"
+            List<List<int>> listOfSplittedPaths = new List<List<int>>();
+            List<List<string>> listOfSplittedPathsStr = new List<List<string>>();
+            foreach (var path in g.allPathsStr)
+            {
+                var splittedPathStr = new List<string>();
+                var splittedPathInt = new List<int>();
+                var splittedPathChr = new List<string>();
+
+                splittedPathStr = path.Split(' ').ToList();
+                splittedPathStr.ForEach(x => splittedPathChr.Add(((char)('A' + Int32.Parse(x))).ToString()));
+                splittedPathStr.ForEach(x => splittedPathInt.Add(Int32.Parse(x)));
+
+                listOfSplittedPaths.Add(splittedPathInt);
+                listOfSplittedPathsStr.Add(splittedPathChr);
+            }
+
+            return listOfSplittedPathsStr;
+        }
+
+        public static List<int> getTailList(this MyGraph myGraph)
+        {
+            var tails = new List<int>();
+            var pipes = myGraph.Pipes;
+            var nodes = myGraph.Nodes;
+
+            foreach (var node in nodes)
+            {
+                foreach (var pipe in node.Pipes)
+                {
+                    if (pipe.StartingValue > 0)
+                    {
+                        tails.Add(Char.Parse(pipe.StartingPoint) - 'A');
+                    }
+                }
+
+            }
+            return tails;
+        }
+
+        public static List<int> getHeadList(this MyGraph myGraph)
+        {
+            var heads = new List<int>();
+            var pipes = myGraph.Pipes;
+            var nodes = myGraph.Nodes;
+
+            foreach (var node in nodes)
+            {
+                foreach (var pipe in node.Pipes)
+                {
+                    if (pipe.StartingValue > 0)
+                    {
+                        heads.Add(Char.Parse(pipe.EndPoint) - 'A');
+                    }
+                }
+
+            }
+            return heads;
+        }
+
+        public static List<int> getCapacityList(this MyGraph myGraph)
+        {
+            var capacities = new List<int>();
+            var pipes = myGraph.Pipes;
+            var nodes = myGraph.Nodes;
+
+            foreach (var node in nodes)
+            {
+                foreach (var pipe in node.Pipes)
+                {
+                    if (pipe.StartingValue > 0)
+                    {
+                        capacities.Add(pipe.StartingValue);
+                    }
+                }
+
+            }
+            return capacities;
         }
     }
 }
