@@ -101,7 +101,7 @@
             this.btnMaxFlowPaths.Name = "btnMaxFlowPaths";
             this.btnMaxFlowPaths.Size = new System.Drawing.Size(84, 35);
             this.btnMaxFlowPaths.TabIndex = 3;
-            this.btnMaxFlowPaths.Text = "Max Flow Paths";
+            this.btnMaxFlowPaths.Text = "All Flow Paths";
             this.btnMaxFlowPaths.UseVisualStyleBackColor = true;
             this.btnMaxFlowPaths.Click += new System.EventHandler(this.btnMaxFlowPaths_Click);
             // 

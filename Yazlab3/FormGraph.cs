@@ -77,7 +77,8 @@ namespace Yazlab3
             this.ResumeLayout();
         }
 
-        public FormGraph(List<string> maxFlowPath)
+        //maxFlowPath => { "A", "B", "C", "E" }
+        public FormGraph(List<string> maxFlowPath, bool isMaxFlowPath)
         {
             List<string[]> binaryList = new List<string[]>();
             InitializeComponent();
@@ -109,12 +110,17 @@ namespace Yazlab3
                 {
                     if (IsOnThePath(myPipe, binaryPaths))
                     {
-                        graph.AddEdge(myPipe.StartingPoint, myPipe.StartingValue.ToString(),
-                            myPipe.EndPoint).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
-
-                        //graph.AddEdge(myPipe.StartingPoint, myPipe.StartingValue.ToString(),
-                        //        myPipe.EndPoint).Attr.LineWidth = 10;
-
+                        if (isMaxFlowPath)
+                        {
+                            graph.AddEdge(myPipe.StartingPoint, myPipe.StartingValue.ToString(),
+                                myPipe.EndPoint).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                        }
+                        else
+                        {
+                            graph.AddEdge(myPipe.StartingPoint, myPipe.StartingValue.ToString(),
+                                myPipe.EndPoint).Attr.Color = Microsoft.Msagl.Drawing.Color.Blue;
+                        }
+                        
 
                     }
                     else
@@ -129,10 +135,18 @@ namespace Yazlab3
                 {
                     if (IsOnThePath(myPipe, binaryPaths))
                     {
-                        graph.AddEdge(myPipe.EndPoint, myPipe.EndingValue.ToString(),
+                        if (isMaxFlowPath)
+                        {
+                            graph.AddEdge(myPipe.EndPoint, myPipe.EndingValue.ToString(),
                             myPipe.StartingPoint).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
-                        //graph.AddEdge(myPipe.EndPoint, myPipe.EndingValue.ToString(),
-                        //    myPipe.StartingPoint).Attr.LineWidth = 10;
+                        }
+                        else
+                        {
+                            graph.AddEdge(myPipe.EndPoint, myPipe.EndingValue.ToString(),
+                            myPipe.StartingPoint).Attr.Color = Microsoft.Msagl.Drawing.Color.Blue;
+                        }
+                        
+                        
                     }
                     else
                     {

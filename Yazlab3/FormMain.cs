@@ -55,11 +55,33 @@ namespace Yazlab3
         private void btnMaxFlowPaths_Click(object sender, EventArgs e)
         {
             MyGraph myGraph = InputControls.getMyGraph();
-            var pathList = myGraph.getMaxFlowPaths();
+            var pathList = myGraph.getAllPaths();
+            var maxFlowList = new List<int>();
+            var isMaxFlowList = new List<bool>();
 
             for (int i = 0; i < pathList.Count(); i++)
             {
-                FormGraph formGraph = new FormGraph(pathList[i]);
+                int maxFlow = myGraph.getMaxFlowOfPath(pathList[i]);
+                maxFlowList.Add(maxFlow);
+            }
+
+            int maxFlowNum = maxFlowList.Max();
+
+            foreach (var maxFlow in maxFlowList)
+            {
+                if (maxFlow == maxFlowNum)
+                {
+                    isMaxFlowList.Add(true);
+                }
+                else
+                {
+                    isMaxFlowList.Add(false);
+                }
+            }
+
+            for (int i = 0; i < pathList.Count(); i++)
+            {
+                FormGraph formGraph = new FormGraph(pathList[i], isMaxFlowList[i]);
                 formGraph.Show();
             }
             

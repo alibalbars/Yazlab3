@@ -149,7 +149,7 @@ namespace Yazlab3
 
         }
 
-        public static List<List<string>> getMaxFlowPaths(this MyGraph myGraph)
+        public static List<List<string>> getAllPaths(this MyGraph myGraph)
         {
             List<int> tails, heads, capacities;
             tails = myGraph.getTailList();
@@ -250,6 +250,40 @@ namespace Yazlab3
 
             }
             return capacities;
+        }
+
+        //path => {"A","B","C","E"}
+        public static List<List<string>> getBinaryPaths(List<string> path)
+        {
+            //verilen path'teki pipe ları bul
+            //var pipes = myGraph.Pipes;
+
+            List<List<string>> binaryPaths = new List<List<string>>();
+
+            for (int i = 0; i < path.Count() - 1; i++)
+            {
+                binaryPaths.Add(new List<string> { path[i], path[i + 1] });
+            }
+
+            return binaryPaths;
+        }
+
+        //path => "A" "B" "C" "E" 
+        public static int getMaxFlowOfPath(this MyGraph myGraph, List<string> path)
+        {
+            //verilen path'teki pipe ları bul
+            //var pipes = myGraph.Pipes;
+            //var maxFlow = 0;
+            var pipeValueList = new List<int>();
+            for (int i = 0; i < path.Count()-1; i++)
+            {
+                var node = myGraph.Nodes.Where(x => x.Name == path[i]).FirstOrDefault();
+                var pipe = node.Pipes.Where(x => x.EndPoint == path[i + 1]).FirstOrDefault();
+                var pipeValue = pipe.StartingValue;
+                pipeValueList.Add(pipeValue);
+            }
+
+            return pipeValueList.Min();
         }
     }
 }
