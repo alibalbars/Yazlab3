@@ -68,7 +68,7 @@
             // 
             // btnNodeCount
             // 
-            this.btnNodeCount.Location = new System.Drawing.Point(235, 7);
+            this.btnNodeCount.Location = new System.Drawing.Point(224, 9);
             this.btnNodeCount.Name = "btnNodeCount";
             this.btnNodeCount.Size = new System.Drawing.Size(75, 23);
             this.btnNodeCount.TabIndex = 2;
@@ -122,6 +122,7 @@
             this.tbxPipe2Capacity.Name = "tbxPipe2Capacity";
             this.tbxPipe2Capacity.Size = new System.Drawing.Size(100, 20);
             this.tbxPipe2Capacity.TabIndex = 3;
+            this.tbxPipe2Capacity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbxPipe2Capacity_KeyDown);
             // 
             // tbxPipe1Capacity
             // 
@@ -129,6 +130,7 @@
             this.tbxPipe1Capacity.Name = "tbxPipe1Capacity";
             this.tbxPipe1Capacity.Size = new System.Drawing.Size(100, 20);
             this.tbxPipe1Capacity.TabIndex = 2;
+            this.tbxPipe1Capacity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbxPipe1Capacity_KeyDown);
             // 
             // lblPipeName2
             // 

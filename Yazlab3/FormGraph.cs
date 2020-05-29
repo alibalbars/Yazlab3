@@ -15,7 +15,6 @@ namespace Yazlab3
 {
     public partial class FormGraph : Form
     {
-        List<MyNode> listOfNodes;
         MyGraph myGraph;
         public FormGraph()
         {
@@ -24,7 +23,8 @@ namespace Yazlab3
             Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph("graph");
 
-            //listOfNodes = InputControls.getListOfNodes();
+            this.Text = "Graph";
+
             myGraph = InputControls.getMyGraph();
             var nodeList = new List<Node>();
             foreach (var myNode in myGraph.Nodes)
@@ -78,8 +78,10 @@ namespace Yazlab3
         }
 
         //maxFlowPath => { "A", "B", "C", "E" }
+        //Constructor 2
         public FormGraph(List<string> maxFlowPath, bool isMaxFlowPath)
         {
+            //this.Text = flow.ToString();
             List<string[]> binaryList = new List<string[]>();
             InitializeComponent();
             System.Windows.Forms.Form form = new System.Windows.Forms.Form();
@@ -176,11 +178,116 @@ namespace Yazlab3
             this.ResumeLayout();
         }
 
+        //Constructor 3
+        public FormGraph(int[,] pipeArray)
+        {
+            InitializeComponent();
+            System.Windows.Forms.Form form = new System.Windows.Forms.Form();
+            Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph("graph");
+
+            myGraph = InputControls.getMyGraph();
+
+            var minCutPipes = new List<MyPipe>();
+
+            for (int i = 0; i < myGraph.Pipes.Count(); i++)
+            {
+                //if (MinCut.getNodeNum(myGraph.Pipes[i].StartingPoint) == pipeList[i, 0]
+                //    && MinCut.getNodeNum(myGraph.Pipes[i].EndPoint) == pipeList[i, 1])
+                //{
+                //    minCutPipes.Add(myGraph.Pipes[i]);
+                //}
+                for (int k = 0; k < pipeArray.GetLength(0); k++)
+                {
+                    if (MinCut.getNodeNum(myGraph.Pipes[i].StartingPoint) == pipeArray[k, 0]
+                        && MinCut.getNodeNum(myGraph.Pipes[i].EndPoint) == pipeArray[k, 1])
+                    {
+                        minCutPipes.Add(myGraph.Pipes[i]);
+                    }
+                }
+
+            }
+
+            var nodeList = new List<Node>();
+
+            //node ekle
+            foreach (var myNode in myGraph.Nodes)
+            {
+                graph.AddNode(new Node(myNode.Name));
+            }
+
+            //edge ekle
+            foreach (var myPipe in myGraph.Pipes)
+            {
+                if (myPipe.StartingValue != 0)
+                {
+                    if (IsMinCutPipe(myPipe, minCutPipes))
+                    {
+                        graph.AddEdge(myPipe.StartingPoint, myPipe.StartingValue.ToString(),
+                            myPipe.EndPoint).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+
+                    }
+                    else
+                    {
+                        graph.AddEdge(myPipe.StartingPoint, myPipe.StartingValue.ToString(),
+                            myPipe.EndPoint);
+                    }
+                }
+                if (myPipe.EndingValue != 0)
+                {
+                    if (true)
+                    {
+                        graph.AddEdge(myPipe.EndPoint, myPipe.EndingValue.ToString(),
+                            myPipe.StartingPoint).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                    }
+                    else
+                    {
+                        graph.AddEdge(myPipe.EndPoint, myPipe.EndingValue.ToString(), myPipe.StartingPoint);
+
+                    }
+                }
+            }
+
+            string startingPointName = myGraph.Nodes.Where(x => x.IsStartingPoint == true)
+                .Select(x => x.Name).FirstOrDefault();
+
+            string endPointName = myGraph.Nodes.Where(x => x.IsEndPoint == true)
+                .Select(x => x.Name).FirstOrDefault();
+
+            if (startingPointName != null && endPointName != null)
+            {
+                graph.FindNode(startingPointName).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                graph.FindNode(startingPointName).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                graph.FindNode(endPointName).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                graph.FindNode(endPointName).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+            }
+
+
+            viewer.Graph = graph;
+            this.SuspendLayout();
+            viewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Controls.Add(viewer);
+            this.ResumeLayout();
+        }
+
         private bool IsOnThePath(MyPipe pipe, List<List<string>> binaryPaths)
         {
             foreach (var binaryPath in binaryPaths)
             {
                 if (pipe.StartingPoint == binaryPath[0] && pipe.EndPoint == binaryPath[1])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool IsMinCutPipe(MyPipe myPipe, List<MyPipe> minCutPipes)
+        {
+            foreach (var minCutPipe in minCutPipes)
+            {
+                if (myPipe.StartingPoint == minCutPipe.StartingPoint 
+                    && myPipe.EndPoint == minCutPipe.EndPoint)
                 {
                     return true;
                 }

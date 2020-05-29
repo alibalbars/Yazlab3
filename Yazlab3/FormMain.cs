@@ -23,7 +23,7 @@ namespace Yazlab3
         private void FormMain_Load(object sender, EventArgs e)
         {
             graphView.Hide();
-            inputControls.Show();
+            //inputControls.Show();
             this.ActiveControl = inputControls.tbxNodeCount;
 
         }
@@ -31,7 +31,7 @@ namespace Yazlab3
         private void btnControlPnl_Click(object sender, EventArgs e)
         {
             graphView.Hide();
-            inputControls.Show();
+            //inputControls.Show();
         }
 
         private void btnGraphView_Click(object sender, EventArgs e)
@@ -81,10 +81,52 @@ namespace Yazlab3
 
             for (int i = 0; i < pathList.Count(); i++)
             {
-                FormGraph formGraph = new FormGraph(pathList[i], isMaxFlowList[i]);
+                FormGraph formGraph = new FormGraph(pathList[i], isMaxFlowList[i]/*, maxFlowList[i]*/);
+                formGraph.Text = "Net Flow: " + maxFlowList[i].ToString();
                 formGraph.Show();
             }
             
         }
+
+        private void btnMinCut_Click(object sender, EventArgs e)
+        {
+            var myGraph = InputControls.getMyGraph();
+
+            var matrixOfGraph = MinCut.getMatrixOfGraph(myGraph);
+            string start = myGraph.getStartingPoint();
+            string end = myGraph.getEndPoint();
+
+            int startNum = MinCut.getNodeNum(start);
+            int endNum = MinCut.getNodeNum(end);
+
+            var pipeList = MinCut.minCut(matrixOfGraph, startNum, endNum);
+            //var pipeList = MinCut.minCut(matrixOfGraph, Int32.Parse(myGraph.getStartingPoint()),
+            //    Int32.Parse(myGraph.getEndPoint()));
+
+            FormGraph formGraph = new FormGraph(pipeList);
+            formGraph.Text = "MinCut";
+            formGraph.Show();
+
+            StringBuilder sb = new StringBuilder("MinCut Edges:\n");
+
+            for (int i = 0; i < pipeList.GetLength(0); i++)
+            {
+                sb.Append(MinCut.getNodeName(pipeList[i, 0]) + " - " + MinCut.getNodeName(pipeList[i, 1]) + "\n");
+            }
+
+            MessageBox.Show(sb.ToString(), "MinCut Kenarları",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //var pipeNameArray = new int[pipeList.GetLength(0), pipeList.GetLength(1)];
+            //for (int i = 0; i < pipeList.GetLength(0); i++)
+            //{
+            //    for (int i = 0; i < length; i++)
+            //    {
+
+            //    }
+            //    pipeNameArray[i, 0] = MinCut.getNodeName(pipeList[i, 0]);
+            //}
+        }
+
     }
 }

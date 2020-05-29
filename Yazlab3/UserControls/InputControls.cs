@@ -108,8 +108,7 @@ namespace Yazlab3.UserControls
             string name2;
             MyNode node1 = new MyNode();
             MyNode node2 = new MyNode();
-
-            
+            MyNode node = new MyNode();
 
             //Textbox boş ise
             if (String.IsNullOrEmpty(tbxPipe1Capacity.Text))
@@ -136,6 +135,31 @@ namespace Yazlab3.UserControls
             name1 = lblPipeName1.Text;
             name2 = lblPipeName2.Text;
 
+            //baslangic
+            if (capacity1 != 0)
+            {
+                pipe.StartingPoint = name1;
+                pipe.EndPoint = name2;
+                pipe.StartingValue = capacity1;
+                node = listOfNodes.Where(x => x.Name == name1).FirstOrDefault();
+                node.Pipes.Add(pipe);
+
+                myGraph.Pipes.Add(pipe);
+                myGraph.Nodes = listOfNodes;
+            }
+            else if (capacity2 != 0)
+            {
+                pipe.StartingPoint = name2;
+                pipe.EndPoint = name1;
+                pipe.StartingValue = capacity2;
+                node = listOfNodes.Where(x => x.Name == name2).FirstOrDefault();
+                node.Pipes.Add(pipe);
+
+                myGraph.Pipes.Add(pipe);
+                myGraph.Nodes = listOfNodes;
+            }
+
+            /*
             pipe.StartingPoint = name1;
             pipe.EndPoint = name2;
 
@@ -158,8 +182,7 @@ namespace Yazlab3.UserControls
             node1.Pipes.Add(pipe);
             
             node2.Pipes.Add(pipe2);
-            
-
+            */
             pnlPipeCapacity.Hide();
         }
 
@@ -192,6 +215,22 @@ namespace Yazlab3.UserControls
         public static MyGraph getMyGraph()
         {
             return myGraph;
+        }
+
+        private void tbxPipe1Capacity_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnPipeCapacity_Click(null, null);
+            }
+        }
+
+        private void tbxPipe2Capacity_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnPipeCapacity_Click(null, null);
+            }
         }
     }
 }

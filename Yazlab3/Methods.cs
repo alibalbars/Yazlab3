@@ -124,7 +124,7 @@ namespace Yazlab3
             }
 
             MaxFlow maxFlow = new MaxFlow();
-            for (int i = 0; i < tails.Count()/*numPipes*/; ++i)
+            for (int i = 0; i < tails.Count(); ++i)
             {
                 int arc = maxFlow.AddArcWithCapacity(tails[i], heads[i], capacities[i]);
                 if (arc != i) throw new Exception("Internal error");
@@ -268,7 +268,7 @@ namespace Yazlab3
             return binaryPaths;
         }
 
-        //path => "A" "B" "C" "E" 
+        //path => "A" "B" "C" "E"
         public static int getMaxFlowOfPath(this MyGraph myGraph, List<string> path)
         {
             //verilen path'teki pipe ları bul
